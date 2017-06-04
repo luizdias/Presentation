@@ -15,6 +15,7 @@ open class PresentationController: PagesController {
   open var maxAnimationDelay: Double = 3
 
   fileprivate var backgroundContents = [Content]()
+  fileprivate var foregroundContents = [Content]()
   fileprivate var slides = [SlideController]()
   fileprivate var animationsForPages = [Int : [Animatable]]()
 
@@ -133,6 +134,15 @@ extension PresentationController {
       view.sendSubview(toBack: content.view)
       content.layout()
     }
+  }
+
+  public func addToForeground(_ elements: [Content]) {
+      for content in elements {
+          foregroundContents.append(content)
+          view.addSubview(content.view)
+          view.bringSubview(toFront: content.view)
+          content.layout()
+      }
   }
 }
 
